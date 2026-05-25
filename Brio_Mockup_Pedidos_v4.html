@@ -1,0 +1,830 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<title>Brio Fruits — Mockup Pantalla Pedidos · v4 (cliente + selección de producto)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<style>
+:root{
+  --g1:#1F4A30; --g2:#2A6040; --g3:#3F8C5A; --gL:#E6F0EA; --gXL:#F4F9F5;
+  --or:#E07B27; --or2:#C95E0E; --orL:#FFE9D6; --orXL:#FFF6EC;
+  --b:#2C5DA8; --b2:#1E4485; --bL:#E6EFFB; --bXL:#F5F9FE;
+  --r:#C0392B; --rL:#FCE9E1;
+  --y:#E5A93C; --yL:#FFF1D4;
+  --pu:#7B3F90; --puL:#F0E5F5;
+  --ink:#1B2630; --txt:#3A4754; --txt2:#5E6B78;
+  --line:#D7DEE3; --line2:#EDF1F4;
+  --bg:#F7F9FA; --card:#FFFFFF;
+  --shadow:0 1px 2px rgba(20,32,46,.06),0 1px 1px rgba(20,32,46,.04);
+  --shadow2:0 8px 28px rgba(20,32,46,.16);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{background:var(--bg);color:var(--txt);font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;font-size:13px;line-height:1.4;-webkit-font-smoothing:antialiased;}
+.wrap{max-width:1640px;margin:0 auto;padding:14px 18px 70px;}
+button,input,select{font:inherit;color:inherit;}
+button{cursor:pointer;border:none;background:none;}
+
+/* ===== top bar ===== */
+.topbar{display:flex;align-items:center;gap:14px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:9px 14px;box-shadow:var(--shadow);margin-bottom:10px;}
+.brand{display:flex;align-items:center;gap:9px;}
+.brand-mark{width:30px;height:30px;border-radius:7px;background:linear-gradient(135deg,var(--g2),var(--g3));color:#fff;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:13px;letter-spacing:.5px;}
+.brand-name{font-size:14px;font-weight:800;color:var(--g1);letter-spacing:.2px;}
+.brand-sub{font-size:11px;color:var(--txt2);}
+.tb-sep{width:1px;height:26px;background:var(--line);}
+.modulo{display:flex;align-items:center;gap:7px;font-size:12.5px;font-weight:700;color:var(--ink);}
+.modulo .ico{width:22px;height:22px;border-radius:5px;background:var(--orXL);color:var(--or2);display:flex;align-items:center;justify-content:center;font-size:11px;}
+.modulo .vbadge{font-size:9.5px;font-weight:800;background:var(--gL);color:var(--g1);padding:2px 6px;border-radius:8px;letter-spacing:.4px;}
+.tb-spacer{flex:1;}
+.tb-user{display:flex;align-items:center;gap:8px;padding:4px 8px;border:1px solid var(--line);border-radius:6px;background:#fff;}
+.tb-user .av{width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,#9CB3C5,#5E7180);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;}
+.tb-user .name{font-size:11.5px;font-weight:700;color:var(--ink);}
+.tb-user .role{font-size:10px;color:var(--txt2);}
+
+/* ===== title bar ===== */
+.titlebar{margin-bottom:10px;}
+.title-l h1{font-size:18px;font-weight:900;color:var(--g1);letter-spacing:-.2px;}
+.title-l .sub{font-size:11.5px;color:var(--txt2);margin-top:2px;}
+.title-l .sub b{color:var(--ink);}
+.btn{display:inline-flex;align-items:center;gap:5px;padding:7px 12px;border-radius:6px;border:1px solid var(--line);background:#fff;color:var(--ink);font-size:12px;font-weight:600;}
+.btn:hover{background:var(--bg);}
+.btn.primary{background:var(--g2);color:#fff;border-color:var(--g2);}
+.btn.primary:hover{background:var(--g1);}
+.btn.ghost{background:transparent;border-color:transparent;color:var(--txt);}
+.btn.danger{color:var(--r);border-color:var(--rL);}
+.btn .ico{font-size:13px;}
+.btn:disabled{opacity:.45;cursor:not-allowed;}
+
+/* ===== rules banner ===== */
+.rules-banner{display:flex;align-items:center;gap:10px;background:var(--yL);border:1px solid var(--y);border-radius:9px;padding:8px 13px;margin-bottom:10px;font-size:11.5px;color:#8a6014;}
+.rules-banner .rb-ico{font-size:14px;}
+.rules-banner b{color:#6b4a08;}
+.rules-banner .rb-tag{font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;background:var(--y);color:#fff;padding:2px 7px;border-radius:8px;}
+
+/* ===== generic step card ===== */
+.step-card{background:#fff;border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow);margin-bottom:10px;overflow:hidden;position:relative;}
+.step-hd{display:flex;align-items:center;gap:9px;padding:9px 14px;border-bottom:1px solid var(--line2);}
+.step-hd .step{width:22px;height:22px;border-radius:50%;background:var(--g2);color:#fff;font-weight:900;font-size:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.step-hd .t{font-size:12.5px;font-weight:800;color:var(--g1);}
+.step-hd .s{font-size:11px;color:var(--txt2);}
+.step-hd .hd-state{margin-left:auto;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;padding:3px 9px;border-radius:8px;}
+.hd-state.todo{background:var(--orL);color:var(--or2);}
+.hd-state.done{background:var(--gL);color:var(--g1);}
+
+/* ===== client card (step 1) ===== */
+.cli-card .step-hd{background:var(--bXL);}
+.cli-card .step-hd .step{background:var(--b);}
+.cli-card .step-hd .t{color:var(--b2);}
+.cli-body{padding:12px 14px;}
+.cli-chips{display:grid;grid-template-columns:repeat(10,1fr);gap:6px;}
+.cli-chip{padding:9px 4px;border-radius:8px;border:1.5px solid var(--line);background:#fff;font-size:12.5px;font-weight:800;color:var(--txt);text-align:center;transition:all .08s;}
+.cli-chip:hover{border-color:var(--b);background:var(--bXL);}
+.cli-chip.active{background:var(--b);border-color:var(--b);color:#fff;box-shadow:0 1px 5px rgba(44,93,168,.35);}
+.cli-current{display:flex;align-items:center;gap:9px;margin-top:11px;padding:9px 12px;background:var(--bL);border:1px solid var(--b);border-radius:9px;}
+.cli-current .av{width:34px;height:34px;border-radius:8px;background:linear-gradient(135deg,var(--b),var(--b2));color:#fff;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:13px;flex-shrink:0;}
+.cli-current .ci{display:flex;flex-direction:column;line-height:1.25;}
+.cli-current .ci .l{font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--b);}
+.cli-current .ci .n{font-size:14px;font-weight:900;color:var(--ink);}
+.cli-current .ci .n small{font-weight:600;color:var(--txt2);font-size:11px;}
+.cli-current .cc{margin-left:auto;text-align:right;}
+.cli-current .cc .v{font-size:18px;font-weight:900;color:var(--b2);line-height:1;}
+.cli-current .cc .u{font-size:9px;font-weight:700;color:var(--txt2);text-transform:uppercase;letter-spacing:.4px;}
+.cli-current .cc .chg{font-size:10px;font-weight:700;color:var(--b);text-decoration:underline;cursor:pointer;display:block;margin-top:3px;}
+.cli-hint{margin-top:10px;font-size:11px;color:var(--txt2);text-align:center;}
+
+/* ===== selectors card (step 2) ===== */
+.sel-card .step-hd{background:var(--gXL);}
+.sel-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;}
+.sel-col{padding:11px 14px;border-right:1px solid var(--line2);}
+.sel-col:last-child{border-right:none;}
+.sel-col .sc-hd{display:flex;align-items:baseline;gap:6px;margin-bottom:8px;}
+.sel-col .sc-name{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.6px;color:var(--ink);}
+.sel-col .sc-count{font-size:9.5px;color:var(--txt2);font-weight:600;}
+.sel-col .sc-req{font-size:9px;font-weight:800;color:var(--or2);background:var(--orL);padding:1px 5px;border-radius:6px;margin-left:auto;text-transform:uppercase;letter-spacing:.4px;}
+.sel-col .sc-req.done{color:var(--g1);background:var(--gL);}
+.chips{display:flex;flex-wrap:wrap;gap:5px;}
+.chip{min-width:38px;padding:7px 9px;border-radius:7px;border:1.5px solid var(--line);background:#fff;font-size:12px;font-weight:800;color:var(--txt);text-align:center;transition:all .08s;}
+.chip:hover:not(:disabled){border-color:var(--g3);background:var(--gXL);}
+.chip.active{background:var(--g2);border-color:var(--g2);color:#fff;box-shadow:0 1px 4px rgba(31,74,48,.3);}
+.chip:disabled{opacity:.32;cursor:not-allowed;background:repeating-linear-gradient(45deg,#fff,#fff 4px,#F1F3F5 4px,#F1F3F5 8px);color:var(--txt2);}
+
+/* ===== context strip ===== */
+.ctx-strip{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:9px 14px;background:var(--g1);color:#fff;border-radius:9px;margin-bottom:10px;}
+.ctx-strip .cl{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.6px;opacity:.8;}
+.ctx-pill{display:inline-flex;align-items:center;gap:4px;font-size:11.5px;font-weight:800;background:rgba(255,255,255,.14);padding:3px 9px;border-radius:8px;}
+.ctx-pill.cli{background:var(--b);}
+.ctx-pill .k{opacity:.65;font-size:9px;font-weight:700;}
+.ctx-pill.empty{background:rgba(255,255,255,.06);color:rgba(255,255,255,.45);font-weight:600;}
+.ctx-arrow{opacity:.4;font-weight:900;}
+.ctx-strip .ctx-spacer{flex:1;}
+.ctx-strip .ctx-reset{font-size:10.5px;font-weight:700;color:#fff;text-decoration:underline;opacity:.85;}
+
+/* ===== layout split ===== */
+.split{display:grid;grid-template-columns:1fr 360px;gap:12px;align-items:flex-start;}
+
+/* ===== matrix card ===== */
+.matrix-card{background:#fff;border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow);overflow:hidden;position:relative;}
+.mc-hd{display:flex;align-items:center;gap:9px;padding:9px 14px;border-bottom:1px solid var(--line2);}
+.mc-hd .step{width:22px;height:22px;border-radius:50%;background:var(--g2);color:#fff;font-weight:900;font-size:12px;display:flex;align-items:center;justify-content:center;}
+.mc-hd .t{font-size:12.5px;font-weight:800;color:var(--g1);}
+.mc-hd .s{font-size:11px;color:var(--txt2);}
+.mc-hd .legend{margin-left:auto;display:flex;gap:12px;font-size:10px;color:var(--txt2);}
+.mc-hd .legend i{width:11px;height:11px;border-radius:3px;display:inline-block;vertical-align:-1px;margin-right:4px;}
+.lg-ok{background:#fff;border:1.5px solid var(--g3);}
+.lg-q{background:var(--g2);}
+.lg-no{background:repeating-linear-gradient(45deg,#fff,#fff 3px,#E4E7EA 3px,#E4E7EA 6px);border:1px solid var(--line);}
+
+.mtbl-wrap{overflow-x:auto;}
+table.matrix{border-collapse:collapse;width:100%;font-size:12px;table-layout:fixed;}
+table.matrix th,table.matrix td{border:1px solid var(--line2);padding:0;text-align:center;vertical-align:middle;}
+col.c-var{width:96px;}
+col.c-cal{width:60px;}
+col.c-tot{width:62px;}
+table.matrix thead th{background:var(--g2);color:#fff;font-size:11px;font-weight:800;padding:8px 3px;border-color:var(--g1);line-height:1.15;}
+table.matrix thead th.corner{background:var(--g1);font-size:9.5px;text-transform:uppercase;letter-spacing:.4px;}
+table.matrix thead th.tot{background:var(--ink);}
+td.var{background:linear-gradient(180deg,var(--gXL),#fff);font-weight:900;color:var(--g1);font-size:12.5px;}
+td.cell{cursor:pointer;background:#fff;height:46px;position:relative;}
+td.cell:hover{background:var(--gL);outline:2px dashed var(--g3);outline-offset:-3px;}
+td.cell.no{cursor:not-allowed;background:repeating-linear-gradient(45deg,#fff,#fff 4px,#EEF0F2 4px,#EEF0F2 8px);}
+td.cell.no:hover{background:repeating-linear-gradient(45deg,#fff,#fff 4px,#EEF0F2 4px,#EEF0F2 8px);outline:none;}
+td.cell.q{background:#fff;box-shadow:inset 0 0 0 2.5px var(--g3);}
+td.cell.q:hover{background:var(--gL);}
+td.cell .qv{font-size:17px;font-weight:900;color:var(--g1);line-height:1;font-variant-numeric:tabular-nums;}
+td.cell .qu{font-size:8.5px;color:var(--txt2);font-weight:700;text-transform:uppercase;letter-spacing:.3px;display:block;margin-top:1px;}
+td.cell.tot{background:var(--gL);cursor:default;}
+td.cell.tot:hover{outline:none;background:var(--gL);}
+td.cell.tot .qv{color:var(--g2);}
+table.matrix tr.tot-row td{background:var(--g1);color:#fff;font-weight:900;font-size:13px;height:38px;}
+table.matrix tr.tot-row td.var{background:var(--g1);color:#fff;font-size:10px;text-transform:uppercase;letter-spacing:.4px;}
+table.matrix tr.tot-row td.grand{background:var(--or);color:#fff;font-size:16px;}
+
+/* lock overlay (shared) */
+.lock{position:absolute;inset:0;background:rgba(247,249,250,.94);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center;padding:26px;z-index:5;}
+.lock .lk-ico{font-size:32px;}
+.lock .lk-t{font-size:13.5px;font-weight:800;color:var(--ink);}
+.lock .lk-s{font-size:11.5px;color:var(--txt2);max-width:360px;}
+.lock .lk-miss{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-top:4px;}
+.lock .lk-miss span{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;background:var(--orL);color:var(--or2);padding:3px 8px;border-radius:7px;}
+
+/* ===== side panel ===== */
+.side{display:flex;flex-direction:column;gap:10px;position:sticky;top:10px;}
+.panel{background:#fff;border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow);overflow:hidden;}
+.panel-hd{padding:10px 13px;background:linear-gradient(135deg,var(--g2),var(--g3));color:#fff;display:flex;align-items:center;gap:8px;}
+.panel-hd .step{width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,.2);color:#fff;font-weight:900;font-size:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.panel-hd .t{font-size:13px;font-weight:800;}
+.panel-hd .s{font-size:10px;opacity:.85;display:block;font-weight:600;}
+.panel-hd .cnt{margin-left:auto;background:var(--or);color:#fff;border-radius:9px;padding:2px 9px;font-size:11px;font-weight:900;}
+.panel-bd{padding:11px 13px;}
+.lns{display:flex;flex-direction:column;gap:6px;}
+.ln{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;padding:8px 9px;border-radius:8px;background:var(--bg);border:1px solid var(--line2);}
+.ln .lcombo{display:flex;flex-wrap:wrap;gap:3px;}
+.ln .vb{font-size:9.5px;font-weight:800;padding:2px 5px;border-radius:5px;letter-spacing:.2px;}
+.vb-n{background:var(--orL);color:var(--or2);}
+.vb-v{background:var(--gL);color:var(--g1);}
+.vb-e{background:var(--bL);color:var(--b);}
+.vb-c{background:var(--puL);color:var(--pu);}
+.vb-ca{background:var(--gL);color:var(--g1);}
+.vb-m{background:#EEF0F2;color:var(--txt);}
+.ln .lright{display:flex;flex-direction:column;align-items:flex-end;gap:3px;}
+.ln .lq{font-size:16px;font-weight:900;color:var(--ink);font-variant-numeric:tabular-nums;line-height:1;}
+.ln .lq small{font-size:8.5px;font-weight:700;color:var(--txt2);text-transform:uppercase;}
+.ln .lacts{display:flex;gap:4px;}
+.ln .lacts button{font-size:9.5px;font-weight:700;padding:2px 6px;border-radius:5px;border:1px solid var(--line);background:#fff;color:var(--txt2);}
+.ln .lacts button.ed:hover{color:var(--g1);border-color:var(--g3);}
+.ln .lacts button.rm:hover{color:var(--r);border-color:var(--rL);}
+.ln-empty{text-align:center;padding:24px 14px;color:var(--txt2);}
+.ln-empty .le-ico{font-size:28px;opacity:.5;}
+.ln-empty .le-t{font-size:12px;font-weight:700;color:var(--txt);margin-top:6px;}
+.ln-empty .le-s{font-size:10.5px;margin-top:2px;}
+.totalbox{margin-top:10px;padding:11px 13px;background:var(--g1);color:#fff;border-radius:9px;display:flex;justify-content:space-between;align-items:center;}
+.totalbox .l{font-size:10.5px;text-transform:uppercase;letter-spacing:.7px;font-weight:800;opacity:.9;}
+.totalbox .l small{display:block;font-size:9px;font-weight:600;opacity:.8;letter-spacing:.2px;margin-top:1px;text-transform:none;}
+.totalbox .v{font-size:24px;font-weight:900;font-variant-numeric:tabular-nums;}
+.totalbox .v small{font-size:11px;opacity:.8;font-weight:700;margin-left:3px;}
+.act-row{display:flex;flex-direction:column;gap:6px;margin-top:11px;}
+.act-row .btn{justify-content:center;width:100%;padding:9px 12px;font-size:12.5px;}
+
+/* ===== popover ===== */
+.backdrop{position:fixed;inset:0;background:rgba(20,32,46,.28);z-index:80;display:none;}
+.backdrop.show{display:block;}
+.pop{position:fixed;background:#fff;border:1px solid var(--line);border-radius:11px;box-shadow:var(--shadow2);width:300px;z-index:90;display:none;}
+.pop.show{display:block;}
+.pop-hd{padding:11px 14px;border-bottom:1px solid var(--line2);background:linear-gradient(135deg,var(--gXL),#fff);}
+.pop-hd .pt{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--g2);}
+.pop-hd .pcombo{display:flex;flex-wrap:wrap;gap:3px;margin-top:5px;}
+.pop-bd{padding:13px 14px;}
+.pop-bd .pi-lab{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--ink);margin-bottom:7px;}
+.num{display:flex;align-items:center;gap:7px;justify-content:center;}
+.num button{width:40px;height:40px;border-radius:8px;background:var(--gXL);border:1.5px solid var(--gL);color:var(--g1);font-weight:900;font-size:20px;line-height:1;}
+.num button:hover{background:var(--gL);}
+.num input{width:80px;height:44px;border:1.5px solid var(--g3);border-radius:8px;font-size:24px;font-weight:900;text-align:center;color:var(--ink);background:#fff;outline:none;}
+.quick{display:flex;gap:5px;justify-content:center;margin-top:9px;}
+.quick button{flex:1;padding:6px 0;border-radius:6px;border:1px solid var(--line);background:#fff;font-size:12px;font-weight:800;color:var(--txt2);}
+.quick button:hover{border-color:var(--g3);color:var(--g1);background:var(--gXL);}
+.pop-ft{padding:11px 14px;border-top:1px solid var(--line2);background:var(--bg);display:flex;gap:6px;}
+.pop-ft .btn{flex:1;justify-content:center;padding:8px;font-size:12px;}
+
+/* ===== footer note ===== */
+.note{margin-top:14px;background:#fff;border:1px dashed var(--line);border-radius:10px;padding:13px 16px;font-size:11.5px;color:var(--txt2);line-height:1.6;}
+.note b{color:var(--ink);}
+.note .pill{display:inline-block;font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;padding:1px 6px;border-radius:7px;background:var(--gL);color:var(--g1);margin:0 1px;}
+.note .pill.b{background:var(--bL);color:var(--b);}
+.note h4{font-size:11.5px;color:var(--g1);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px;}
+.note .cols{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:4px;}
+.note code{background:var(--gXL);border:1px solid var(--gL);border-radius:4px;padding:1px 5px;font-size:10.5px;color:var(--g1);font-family:'SFMono-Regular',Consolas,monospace;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="brand">
+      <div class="brand-mark">B</div>
+      <div>
+        <div class="brand-name">Brio Fruits</div>
+        <div class="brand-sub">Cítricos · ERP comercial</div>
+      </div>
+    </div>
+    <div class="tb-sep"></div>
+    <div class="modulo">
+      <div class="ico">📋</div>
+      <span>Pedidos · Captura comercial</span>
+      <span class="vbadge">v4 — cliente + producto</span>
+    </div>
+    <div class="tb-spacer"></div>
+    <div class="tb-user">
+      <div class="av">MG</div>
+      <div>
+        <div class="name">María García</div>
+        <div class="role">Comercial — Naranja</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TITLE BAR -->
+  <div class="titlebar">
+    <div class="title-l">
+      <h1>Captura de pedido — cliente y producto</h1>
+      <div class="sub">El cliente llama. <b>Primero</b> se elige el cliente; después se define cada producto combinando las <b>6 variables</b> y se registran los palets.</div>
+    </div>
+  </div>
+
+  <!-- RULES LAYER BANNER -->
+  <div class="rules-banner">
+    <span class="rb-ico">⚙️</span>
+    <span class="rb-tag">Reglas de ejemplo</span>
+    <span>Las dependencias entre variables son <b>de ejemplo</b>. Se editan en el bloque <b>REGLAS</b> del código (al inicio del &lt;script&gt;) — sustituir por las reglas reales de BRIO. <b id="rb-stat"></b></span>
+  </div>
+
+  <!-- STEP 1 · CLIENTE -->
+  <div class="step-card cli-card">
+    <div class="step-hd">
+      <div class="step">1</div>
+      <div>
+        <div class="t">Selecciona el cliente</div>
+        <div class="s">Primer paso del pedido · el cliente que llama por teléfono</div>
+      </div>
+      <span class="hd-state todo" id="cliState">Pendiente</span>
+    </div>
+    <div class="cli-body" id="cliBody"><!-- client picker render here --></div>
+  </div>
+
+  <!-- STEP 2 · SELECTORS -->
+  <div class="step-card sel-card">
+    <div class="step-hd">
+      <div class="step">2</div>
+      <div>
+        <div class="t">Contexto del producto</div>
+        <div class="s">4 variables que fijan el producto · Variedad y Calibre se eligen en la cuadrícula</div>
+      </div>
+      <span class="hd-state todo" id="selState">Pendiente</span>
+    </div>
+    <div class="sel-grid" id="selGrid"><!-- selectors render here --></div>
+    <div class="lock" id="lockSel">
+      <div class="lk-ico">👤</div>
+      <div class="lk-t">Elige primero el cliente</div>
+      <div class="lk-s">El contexto del producto se activa cuando hay un cliente seleccionado en el paso 1.</div>
+    </div>
+  </div>
+
+  <!-- CONTEXT STRIP -->
+  <div class="ctx-strip" id="ctxStrip"><!-- context render here --></div>
+
+  <!-- SPLIT -->
+  <div class="split">
+
+    <!-- LEFT: MATRIX -->
+    <div class="matrix-card">
+      <div class="mc-hd">
+        <div class="step">3</div>
+        <div>
+          <div class="t">Cuadrícula Variedad × Calibre</div>
+          <div class="s">Pulsa una celda válida e introduce los palets</div>
+        </div>
+        <div class="legend">
+          <span><i class="lg-ok"></i> Disponible</span>
+          <span><i class="lg-q"></i> Con palets</span>
+          <span><i class="lg-no"></i> No válida</span>
+        </div>
+      </div>
+      <div class="mtbl-wrap" id="mtblWrap"><!-- matrix render here --></div>
+      <div class="lock" id="lock">
+        <div class="lk-ico">🔒</div>
+        <div class="lk-t">Completa cliente y contexto para activar la cuadrícula</div>
+        <div class="lk-s">Faltan estos pasos para mostrar las combinaciones de Variedad × Calibre disponibles:</div>
+        <div class="lk-miss" id="lkMiss"></div>
+      </div>
+    </div>
+
+    <!-- RIGHT: ORDER LINES -->
+    <div class="side">
+      <div class="panel">
+        <div class="panel-hd">
+          <div class="step">4</div>
+          <div>
+            <div class="t" id="lnTitle">Líneas del pedido</div>
+            <span class="s" id="lnSub">Selecciona un cliente para empezar</span>
+          </div>
+          <span class="cnt" id="lnCnt">0</span>
+        </div>
+        <div class="panel-bd">
+          <div id="lnList"><!-- lines render here --></div>
+          <div class="totalbox">
+            <div class="l">Total pedido<small id="tbSub">sin líneas todavía</small></div>
+            <div class="v" id="tbVal">0<small>pal</small></div>
+          </div>
+          <div class="act-row">
+            <button class="btn primary" id="btnConfirm" disabled><span class="ico">✓</span> Confirmar pedido</button>
+            <button class="btn ghost danger" id="btnClear" disabled><span class="ico">✕</span> Vaciar pedido del cliente</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER NOTE -->
+  <div class="note">
+    <h4>Cómo funciona la v4</h4>
+    <b>1.</b> El comercial selecciona el <span class="pill b">Cliente</span> que llama (20 clientes).
+    <b>2.</b> Fija las 4 variables de contexto: <span class="pill">Naranja</span> <span class="pill">Envase</span> <span class="pill">Confección</span> <span class="pill">Marca</span>.
+    <b>3.</b> La cuadrícula <span class="pill">Variedad × Calibre</span> se activa y muestra solo las combinaciones compatibles.
+    <b>4.</b> Pulsa la celda del producto exacto e introduce los palets — se añade como línea del pedido de ese cliente.
+    <b>5.</b> Cambiar de cliente conserva el pedido de cada uno por separado.
+    <div class="cols">
+      <div>
+        <h4>Espacio de producto</h4>
+        Naranja (2) × Variedad (12) × Envase (10) × Confección (5) × Calibre (12) × Marca (5) = <b>72.000 combinaciones</b> posibles. Las reglas de dependencia reducen ese número a las realmente comercializables. El cliente no es una variable del producto: es el destinatario del pedido.
+      </div>
+      <div>
+        <h4>Capa de reglas — editar aquí</h4>
+        En el código, el objeto <code>REGLAS</code> declara las dependencias (ej. <code>variedadPorNaranja</code>, <code>calibrePorVariedad</code>). Hoy contiene <b>reglas de ejemplo</b>; al sustituirlas por las reales, la cuadrícula y los selectores se recalculan solos.
+      </div>
+    </div>
+    <div style="margin-top:9px;font-size:10.5px;">Códigos de cliente <code>CL1</code>–<code>CL20</code> (se usa el prefijo <b>CL</b> para no confundir con la Confección <code>C1</code>–<code>C5</code>). Fuera del alcance v4, previsto para más adelante: datos del cliente (histórico, saldo, ruta), stock cámara/producción, alertas, fechas de expedición futuras y pestañas por tipo de fruta.</div>
+  </div>
+
+</div>
+
+<!-- POPOVER -->
+<div class="backdrop" id="backdrop"></div>
+<div class="pop" id="pop">
+  <div class="pop-hd">
+    <div class="pt" id="popTitle">Producto seleccionado</div>
+    <div class="pcombo" id="popCombo"></div>
+  </div>
+  <div class="pop-bd">
+    <div class="pi-lab">Nº de palets que pide el cliente</div>
+    <div class="num">
+      <button id="popMinus">−</button>
+      <input type="text" inputmode="numeric" id="popInput" value="1"/>
+      <button id="popPlus">+</button>
+    </div>
+    <div class="quick">
+      <button data-q="1">1</button>
+      <button data-q="2">2</button>
+      <button data-q="4">4</button>
+      <button data-q="8">8</button>
+      <button data-q="12">12</button>
+    </div>
+  </div>
+  <div class="pop-ft">
+    <button class="btn ghost" id="popCancel">Cancelar</button>
+    <button class="btn ghost danger" id="popRemove">Quitar línea</button>
+    <button class="btn primary" id="popSave">Guardar</button>
+  </div>
+</div>
+
+<script>
+/* ════════════════════════════════════════════════════════════════════
+   BRIO · MOCKUP PEDIDOS v4 — CLIENTE + SELECCIÓN DE PRODUCTO
+   ════════════════════════════════════════════════════════════════════ */
+
+/* ---- 1. CATÁLOGO DE VARIABLES (códigos genéricos — sustituir por nombres reales) ---- */
+const VARS = {
+  naranja:    { label:'Tipo de naranja', codes: gen('N',2)  },
+  variedad:   { label:'Variedad',        codes: gen('V',12) },
+  envase:     { label:'Envase',          codes: gen('E',10) },
+  confeccion: { label:'Confección',      codes: gen('C',5)  },
+  calibre:    { label:'Calibre',         codes: gen('CA',12)},
+  marca:      { label:'Marca',           codes: gen('M',5)  }
+};
+/* Clientes: prefijo CL para no colisionar con Confección (C1-C5) */
+const CLIENTES = gen('CL',20);
+function gen(p,n){ const a=[]; for(let i=1;i<=n;i++) a.push(p+i); return a; }
+
+/* Nombres reales (opcional) — rellenar cuando BRIO los facilite.
+   Ej.: ETIQUETAS.variedad = { V1:'Nadorcott', ... }; ETIQUETAS.cliente = { CL1:'Frutas Hnos. López', ... } */
+const ETIQUETAS = { cliente:{}, naranja:{}, variedad:{}, envase:{}, confeccion:{}, calibre:{}, marca:{} };
+function etqCliente(code){ const n=ETIQUETAS.cliente[code]; return n? n : 'Cliente '+code; }
+
+/* ════════════════════════════════════════════════════════════════════
+   ▶▶▶  CAPA DE REGLAS DE DEPENDENCIA  —  EDITAR AQUÍ  ◀◀◀
+   ────────────────────────────────────────────────────────────────────
+   Estas reglas son DE EJEMPLO. Sustituir por las reglas reales de BRIO.
+
+   Modelo: cada mapa declara, para un valor de una variable, QUÉ valores
+   de otra variable son compatibles. Si un valor NO aparece como clave en
+   un mapa, se considera SIN restricción (todo permitido).
+   Para desactivar una regla, déjala como objeto vacío  {}.
+
+   Nota: el CLIENTE no interviene en estas reglas — es el destinatario
+   del pedido, no una variable del producto.
+   ════════════════════════════════════════════════════════════════════ */
+const REGLAS_SON_EJEMPLO = true;   // poner false al cargar las reglas reales
+
+const REGLAS = {
+
+  /* Variedades disponibles según el tipo de naranja */
+  variedadPorNaranja: {
+    N1: ['V1','V2','V3','V4','V5','V6','V7','V8'],
+    N2: ['V5','V6','V7','V8','V9','V10','V11','V12']
+  },
+
+  /* Calibres disponibles según la variedad */
+  calibrePorVariedad: {
+    V1:  ['CA1','CA2','CA3','CA4','CA5','CA6'],
+    V2:  ['CA2','CA3','CA4','CA5','CA6','CA7'],
+    V11: ['CA6','CA7','CA8','CA9','CA10','CA11','CA12'],
+    V12: ['CA7','CA8','CA9','CA10','CA11','CA12']
+  },
+
+  /* Envases disponibles según la variedad */
+  envasePorVariedad: {
+    V1: ['E1','E2','E3','E4','E5','E6'],
+    V8: ['E4','E5','E6','E7','E8','E9','E10']
+  },
+
+  /* Confecciones disponibles según el envase */
+  confeccionPorEnvase: {
+    E1:  ['C1','C2'],
+    E2:  ['C1','C2','C3'],
+    E10: ['C3','C4','C5']
+  },
+
+  /* Marcas disponibles según el tipo de naranja */
+  marcaPorNaranja: {
+    N1: ['M1','M2','M3','M4'],
+    N2: ['M2','M3','M4','M5']
+  },
+
+  /* Calibres disponibles según el envase */
+  calibrePorEnvase: {
+    E10: ['CA1','CA2','CA3','CA4','CA5','CA6']
+  }
+};
+
+/* Evalúa si un producto completo (las 6 variables) es válido según REGLAS */
+function productoEsValido(p){
+  const R = REGLAS, chk = (mapa,clave,campo)=>{
+    const m = R[mapa]; if(!m) return true;
+    const permitidos = m[ p[clave] ];
+    return !permitidos || permitidos.indexOf( p[campo] ) !== -1;
+  };
+  return chk('variedadPorNaranja','naranja','variedad')
+      && chk('calibrePorVariedad','variedad','calibre')
+      && chk('envasePorVariedad','variedad','envase')
+      && chk('confeccionPorEnvase','envase','confeccion')
+      && chk('marcaPorNaranja','naranja','marca')
+      && chk('calibrePorEnvase','envase','calibre');
+}
+
+/* ---- 2. PRE-CÁLCULO: lista de todos los productos válidos ---- */
+const PRODUCTOS = [];
+for(const naranja of VARS.naranja.codes)
+ for(const variedad of VARS.variedad.codes)
+  for(const envase of VARS.envase.codes)
+   for(const confeccion of VARS.confeccion.codes)
+    for(const calibre of VARS.calibre.codes)
+     for(const marca of VARS.marca.codes){
+       const p = {naranja,variedad,envase,confeccion,calibre,marca};
+       if(productoEsValido(p)) PRODUCTOS.push(p);
+     }
+
+document.getElementById('rb-stat').textContent =
+  PRODUCTOS.length.toLocaleString('es-ES') + ' combinaciones válidas con las reglas actuales.';
+
+function existe(filtro){
+  return PRODUCTOS.some(p=>{ for(const k in filtro){ if(p[k]!==filtro[k]) return false; } return true; });
+}
+
+/* ---- 3. ESTADO ---- */
+const SELS = ['naranja','envase','confeccion','marca'];   // las 4 variables de contexto
+let cliente = null;                                       // cliente del pedido en curso
+const sel = { naranja:null, envase:null, confeccion:null, marca:null };
+let lineas = [];        // {id, cliente, naranja, variedad, envase, confeccion, calibre, marca, palets}
+let seq = 1;
+let popCtx = null;      // contexto del popover abierto
+
+/* ---- 4. RENDER: CLIENTE ---- */
+function renderCliente(){
+  const host = document.getElementById('cliBody');
+  let h = '<div class="cli-chips">';
+  CLIENTES.forEach(code=>{
+    h += '<button class="cli-chip'+(cliente===code?' active':'')+'" data-cli="'+code+'">'+code+'</button>';
+  });
+  h += '</div>';
+  if(cliente){
+    const nLineas = lineas.filter(l=>l.cliente===cliente).length;
+    const nPal = lineas.filter(l=>l.cliente===cliente).reduce((s,l)=>s+l.palets,0);
+    h += '<div class="cli-current">'+
+      '<div class="av">'+cliente.replace('CL','')+'</div>'+
+      '<div class="ci"><span class="l">Cliente del pedido en curso</span>'+
+        '<span class="n">'+etqCliente(cliente)+' <small>· '+cliente+'</small></span></div>'+
+      '<div class="cc"><div class="v">'+nPal+'</div><div class="u">palets · '+nLineas+' líneas</div>'+
+        '<span class="chg" id="cliChg">Cambiar cliente</span></div>'+
+    '</div>';
+  } else {
+    h += '<div class="cli-hint">Selecciona el cliente que llama para activar la captura del pedido.</div>';
+  }
+  host.innerHTML = h;
+  document.getElementById('cliState').textContent = cliente? cliente : 'Pendiente';
+  document.getElementById('cliState').className = 'hd-state '+(cliente?'done':'todo');
+
+  host.querySelectorAll('[data-cli]').forEach(b=>{
+    b.onclick = ()=>{ cliente = (cliente===b.dataset.cli? null : b.dataset.cli); renderAll(); };
+  });
+  const chg = document.getElementById('cliChg');
+  if(chg) chg.onclick = ()=>{ document.getElementById('cliBody').scrollIntoView({behavior:'smooth',block:'center'}); };
+}
+
+/* ---- 5. RENDER: SELECTORES ---- */
+function renderSelectores(){
+  const host = document.getElementById('selGrid');
+  host.innerHTML = '';
+  SELS.forEach(key=>{
+    const col = document.createElement('div'); col.className='sel-col';
+    const codes = VARS[key].codes;
+    const done = !!sel[key];
+    col.innerHTML =
+      '<div class="sc-hd">'+
+        '<span class="sc-name">'+VARS[key].label+'</span>'+
+        '<span class="sc-count">'+codes.length+' opc.</span>'+
+        '<span class="sc-req'+(done?' done':'')+'">'+(done?'✓ '+sel[key]:'elegir')+'</span>'+
+      '</div>';
+    const chips = document.createElement('div'); chips.className='chips';
+    codes.forEach(code=>{
+      const b = document.createElement('button'); b.className='chip'; b.textContent=code;
+      if(sel[key]===code) b.classList.add('active');
+      const filtro = {}; SELS.forEach(o=>{ if(o!==key && sel[o]) filtro[o]=sel[o]; });
+      filtro[key]=code;
+      if(!cliente || !existe(filtro)) b.disabled = true;
+      b.onclick = ()=>{ sel[key] = (sel[key]===code? null : code); sanear(); renderAll(); };
+      chips.appendChild(b);
+    });
+    col.appendChild(chips);
+    host.appendChild(col);
+  });
+  /* lock overlay si no hay cliente */
+  document.getElementById('lockSel').style.display = cliente? 'none' : 'flex';
+  const todo = SELS.every(k=>sel[k]);
+  const st = document.getElementById('selState');
+  st.textContent = !cliente? 'Bloqueado' : (todo? 'Completo' : 'Pendiente');
+  st.className = 'hd-state '+(todo && cliente?'done':'todo');
+}
+
+/* Si tras un cambio algún selector quedó incompatible, se limpia */
+function sanear(){
+  let cambio = true;
+  while(cambio){
+    cambio = false;
+    SELS.forEach(key=>{
+      if(!sel[key]) return;
+      const filtro = {}; SELS.forEach(o=>{ if(sel[o]) filtro[o]=sel[o]; });
+      if(!existe(filtro)){ sel[key]=null; cambio=true; }
+    });
+  }
+}
+
+/* ---- 6. RENDER: CONTEXTO ---- */
+function renderContexto(){
+  const host = document.getElementById('ctxStrip');
+  let h = '<span class="cl">Pedido en curso</span>';
+  if(cliente) h+='<span class="ctx-pill cli"><span class="k">Cliente</span> '+cliente+'</span>';
+  else h+='<span class="ctx-pill empty">Cliente</span>';
+  const orden = [['naranja','Naranja'],['envase','Envase'],['confeccion','Confección'],['marca','Marca']];
+  orden.forEach(o=>{
+    const [key,lab]=o;
+    h+='<span class="ctx-arrow">·</span>';
+    if(sel[key]) h+='<span class="ctx-pill"><span class="k">'+lab+'</span> '+sel[key]+'</span>';
+    else h+='<span class="ctx-pill empty">'+lab+'</span>';
+  });
+  h+='<span class="ctx-spacer"></span>';
+  if(SELS.some(k=>sel[k])) h+='<button class="ctx-reset" id="ctxReset">Reiniciar contexto producto</button>';
+  host.innerHTML = h;
+  const r=document.getElementById('ctxReset');
+  if(r) r.onclick=()=>{ SELS.forEach(k=>sel[k]=null); renderAll(); };
+}
+
+/* ---- 7. RENDER: MATRIZ ---- */
+function ctxCompleto(){ return !!cliente && SELS.every(k=>sel[k]); }
+
+function lineaDe(variedad,calibre){
+  return lineas.find(l=> l.cliente===cliente && l.naranja===sel.naranja && l.envase===sel.envase &&
+    l.confeccion===sel.confeccion && l.marca===sel.marca &&
+    l.variedad===variedad && l.calibre===calibre);
+}
+
+function renderMatriz(){
+  const lock = document.getElementById('lock');
+  const wrap = document.getElementById('mtblWrap');
+  if(!ctxCompleto()){
+    lock.style.display='flex';
+    const falta = [];
+    if(!cliente) falta.push('Cliente');
+    SELS.forEach(k=>{ if(!sel[k]) falta.push(VARS[k].label); });
+    document.getElementById('lkMiss').innerHTML = falta.map(f=>'<span>'+f+'</span>').join('');
+  } else {
+    lock.style.display='none';
+  }
+
+  const cals = VARS.calibre.codes, vars = VARS.variedad.codes;
+  let h = '<table class="matrix"><colgroup><col class="c-var"/>';
+  cals.forEach(()=> h+='<col class="c-cal"/>'); h+='<col class="c-tot"/></colgroup>';
+  h+='<thead><tr><th class="corner">Variedad ↓ / Calibre →</th>';
+  cals.forEach(c=> h+='<th>'+c+'</th>');
+  h+='<th class="tot">Total</th></tr></thead><tbody>';
+  const colTot = {}; cals.forEach(c=>colTot[c]=0); let grand=0;
+  vars.forEach(v=>{
+    h+='<tr><td class="var">'+v+'</td>';
+    let rowTot=0;
+    cals.forEach(c=>{
+      const valida = ctxCompleto() && existe({naranja:sel.naranja,envase:sel.envase,
+        confeccion:sel.confeccion,marca:sel.marca,variedad:v,calibre:c});
+      const ln = ctxCompleto()? lineaDe(v,c) : null;
+      if(ln){ rowTot+=ln.palets; colTot[c]+=ln.palets; grand+=ln.palets; }
+      if(!valida){
+        h+='<td class="cell no"></td>';
+      } else if(ln){
+        h+='<td class="cell q" data-v="'+v+'" data-c="'+c+'"><span class="qv">'+ln.palets+'</span><span class="qu">palets</span></td>';
+      } else {
+        h+='<td class="cell" data-v="'+v+'" data-c="'+c+'"></td>';
+      }
+    });
+    h+='<td class="cell tot">'+(rowTot? '<span class="qv">'+rowTot+'</span>' : '')+'</td></tr>';
+  });
+  h+='<tr class="tot-row"><td class="var">Total calibre</td>';
+  cals.forEach(c=> h+='<td>'+(colTot[c]||'')+'</td>');
+  h+='<td class="grand">'+(grand||'')+'</td></tr>';
+  h+='</tbody></table>';
+  wrap.innerHTML = h;
+
+  wrap.querySelectorAll('td.cell[data-v]').forEach(td=>{
+    td.onclick = ()=> abrirPopover(td.dataset.v, td.dataset.c, td);
+  });
+}
+
+/* ---- 8. POPOVER ---- */
+const pop = document.getElementById('pop'), backdrop = document.getElementById('backdrop');
+const popInput = document.getElementById('popInput');
+
+function abrirPopover(variedad,calibre,anchor){
+  popCtx = { cliente:cliente, naranja:sel.naranja, envase:sel.envase, confeccion:sel.confeccion,
+             marca:sel.marca, variedad:variedad, calibre:calibre };
+  const ln = lineaDe(variedad,calibre);
+  popInput.value = ln? ln.palets : 1;
+  document.getElementById('popRemove').style.display = ln? '' : 'none';
+  const orden=[['cliente','vb-e'],['naranja','vb-n'],['variedad','vb-v'],['envase','vb-e'],
+               ['confeccion','vb-c'],['calibre','vb-ca'],['marca','vb-m']];
+  document.getElementById('popCombo').innerHTML =
+    orden.map(o=>'<span class="vb '+o[1]+'">'+popCtx[o[0]]+'</span>').join('');
+  document.getElementById('popTitle').textContent = ln? 'Editar línea de pedido' : 'Nuevo producto · introduce palets';
+  pop.classList.add('show'); backdrop.classList.add('show');
+  const r = anchor.getBoundingClientRect(), pw=300;
+  let left = r.left + r.width/2 - pw/2;
+  left = Math.max(10, Math.min(left, window.innerWidth - pw - 10));
+  let top = r.bottom + 8;
+  if(top + pop.offsetHeight > window.innerHeight - 10) top = r.top - pop.offsetHeight - 8;
+  pop.style.left = left+'px'; pop.style.top = Math.max(10,top)+'px';
+  popInput.focus(); popInput.select();
+}
+function cerrarPopover(){ pop.classList.remove('show'); backdrop.classList.remove('show'); popCtx=null; }
+
+function leerPalets(){ let n=parseInt(popInput.value,10); if(isNaN(n)||n<0) n=0; return n; }
+function setPalets(n){ popInput.value = Math.max(0,n); }
+
+document.getElementById('popMinus').onclick = ()=> setPalets(leerPalets()-1);
+document.getElementById('popPlus').onclick  = ()=> setPalets(leerPalets()+1);
+document.querySelectorAll('.quick button').forEach(b=>{
+  b.onclick = ()=> setPalets(parseInt(b.dataset.q,10));
+});
+document.getElementById('popCancel').onclick = cerrarPopover;
+backdrop.onclick = cerrarPopover;
+document.getElementById('popSave').onclick = guardarPopover;
+document.getElementById('popRemove').onclick = ()=>{
+  if(!popCtx) return;
+  lineas = lineas.filter(l=> !mismaCelda(l,popCtx));
+  cerrarPopover(); renderAll();
+};
+popInput.addEventListener('keydown', e=>{
+  if(e.key==='Enter') guardarPopover();
+  if(e.key==='Escape') cerrarPopover();
+});
+
+function mismaCelda(l,c){
+  return l.cliente===c.cliente && l.naranja===c.naranja && l.envase===c.envase &&
+         l.confeccion===c.confeccion && l.marca===c.marca &&
+         l.variedad===c.variedad && l.calibre===c.calibre;
+}
+function guardarPopover(){
+  if(!popCtx) return;
+  const n = leerPalets();
+  lineas = lineas.filter(l=> !mismaCelda(l,popCtx));
+  if(n>0) lineas.push(Object.assign({id:seq++, palets:n}, popCtx));
+  cerrarPopover(); renderAll();
+}
+
+/* ---- 9. RENDER: LÍNEAS ---- */
+function renderLineas(){
+  const host = document.getElementById('lnList');
+  const propias = lineas.filter(l=>l.cliente===cliente);
+  document.getElementById('lnCnt').textContent = propias.length;
+  document.getElementById('lnTitle').textContent = cliente? 'Pedido · '+cliente : 'Líneas del pedido';
+  document.getElementById('lnSub').textContent = cliente
+    ? 'Productos definidos para '+etqCliente(cliente)
+    : 'Selecciona un cliente para empezar';
+
+  if(!cliente){
+    host.innerHTML = '<div class="ln-empty"><div class="le-ico">👤</div>'+
+      '<div class="le-t">Sin cliente seleccionado</div>'+
+      '<div class="le-s">Elige un cliente en el paso 1.</div></div>';
+  } else if(!propias.length){
+    host.innerHTML = '<div class="ln-empty"><div class="le-ico">🗒️</div>'+
+      '<div class="le-t">Sin productos todavía</div>'+
+      '<div class="le-s">Fija el contexto y pulsa una celda de la cuadrícula.</div></div>';
+  } else {
+    const orden=[['naranja','vb-n'],['variedad','vb-v'],['envase','vb-e'],
+                 ['confeccion','vb-c'],['calibre','vb-ca'],['marca','vb-m']];
+    host.innerHTML = '<div class="lns">'+ propias.map(l=>{
+      const combo = orden.map(o=>'<span class="vb '+o[1]+'">'+l[o[0]]+'</span>').join('');
+      return '<div class="ln">'+
+        '<div class="lcombo">'+combo+'</div>'+
+        '<div class="lright">'+
+          '<div class="lq">'+l.palets+'<small> pal</small></div>'+
+          '<div class="lacts"><button class="ed" data-ed="'+l.id+'">Editar</button>'+
+          '<button class="rm" data-rm="'+l.id+'">Quitar</button></div>'+
+        '</div></div>';
+    }).join('') +'</div>';
+  }
+  const total = propias.reduce((s,l)=>s+l.palets,0);
+  document.getElementById('tbVal').innerHTML = total+'<small>pal</small>';
+  document.getElementById('tbSub').textContent = propias.length
+    ? propias.length+(propias.length===1?' línea':' líneas')+' · '+total+' palets'
+    : (cliente? 'sin líneas todavía' : 'sin cliente');
+  document.getElementById('btnConfirm').disabled = !propias.length;
+  document.getElementById('btnClear').disabled = !propias.length;
+
+  host.querySelectorAll('[data-rm]').forEach(b=>{
+    b.onclick = ()=>{ lineas = lineas.filter(l=>l.id!=b.dataset.rm); renderAll(); };
+  });
+  host.querySelectorAll('[data-ed]').forEach(b=>{
+    b.onclick = ()=>{
+      const l = lineas.find(x=>x.id==b.dataset.ed); if(!l) return;
+      cliente=l.cliente;
+      sel.naranja=l.naranja; sel.envase=l.envase; sel.confeccion=l.confeccion; sel.marca=l.marca;
+      renderAll();
+      const td = document.querySelector('td.cell[data-v="'+l.variedad+'"][data-c="'+l.calibre+'"]');
+      if(td){ td.scrollIntoView({block:'center',behavior:'smooth'}); abrirPopover(l.variedad,l.calibre,td); }
+    };
+  });
+}
+
+document.getElementById('btnClear').onclick = ()=>{
+  const propias = lineas.filter(l=>l.cliente===cliente);
+  if(propias.length && confirm('¿Vaciar todas las líneas del pedido de '+cliente+'?')){
+    lineas = lineas.filter(l=>l.cliente!==cliente); renderAll();
+  }
+};
+document.getElementById('btnConfirm').onclick = ()=>{
+  const propias = lineas.filter(l=>l.cliente===cliente);
+  alert('Mockup v4 · Pedido de '+cliente+' con '+propias.length+' línea(s) y '+
+        propias.reduce((s,l)=>s+l.palets,0)+' palets.\n\n(La confirmación real se conectará en una versión posterior.)');
+};
+
+/* ---- 10. RENDER GLOBAL ---- */
+function renderAll(){ renderCliente(); renderSelectores(); renderContexto(); renderMatriz(); renderLineas(); }
+renderAll();
+</script>
+</body>
+</html>
