@@ -6,26 +6,26 @@ let pedidoActual = {
 };
 
 // --- INTEGRACIÓN DE LA TABLA DE CLIENTES ---
-// Esta función lee el archivo JSON y dibuja los 15 botones en pantalla
+// Esta función lee el archivo JSON y dibuja tus 15 botones en pantalla
 function cargarTablaClientes() {
     const contenedor = document.getElementById('contenedor-botones-clientes');
 
-    // Si el contenedor no existe en tu HTML, detenemos la función para evitar errores
+    // Si el contenedor no existe en el HTML, detenemos la función para evitar errores
     if (!contenedor) return;
 
     fetch('clientes.json')
         .then(respuesta => respuesta.json())
         .then(clientes => {
-            // Limpiamos el contenedor por si había botones viejos de prueba
+            // Limpiamos los botones viejos de prueba
             contenedor.innerHTML = "";
 
-            // Creamos un botón para cada cliente de la tabla
+            // Creamos un botón para cada cliente real de la tabla
             clientes.forEach(cliente => {
                 const boton = document.createElement('button');
                 boton.textContent = cliente.nombre;
-                boton.className = 'cli-chip'; // Usamos tu clase exacta
+                boton.className = 'cli-chip'; // Conserva tu estilo original de color gris
 
-                // Escuchamos el clic en el botón
+                // Al pulsar el botón, ejecutamos la selección
                 boton.addEventListener('click', (event) => {
                     seleccionarCliente(cliente.nombre, event.target);
                 });
@@ -36,15 +36,15 @@ function cargarTablaClientes() {
         .catch(error => console.error("Error al cargar la tabla de clientes:", error));
 }
 
-// Ejecutamos la carga automática al abrir la aplicación
+// Ejecutamos la carga automática en cuanto se abre la página web
 document.addEventListener('DOMContentLoaded', cargarTablaClientes);
 
 
-// Función para seleccionar cliente (Modificada para recibir el botón pulsado)
+// Función para seleccionar cliente (Modificada para recibir el elemento del botón)
 function seleccionarCliente(nombreCliente, botonPulsado) {
     pedidoActual.cliente = nombreCliente;
 
-    // Quitar clase activa a todos y ponerla al seleccionado
+    // Quita la clase active a todos los clientes y se la pone al seleccionado
     document.querySelectorAll('.cli-chip').forEach(btn => btn.classList.remove('active'));
     botonPulsado.classList.add('active');
 
@@ -55,7 +55,7 @@ function seleccionarCliente(nombreCliente, botonPulsado) {
 function seleccionarProducto(nombreProducto) {
     pedidoActual.producto = nombreProducto;
 
-    // Resaltar botón seleccionado
+    // Resaltar botón seleccionado en base al evento del click
     const botones = event.target.parentElement.querySelectorAll('.chip');
     botones.forEach(btn => btn.classList.remove('active'));
     event.target.classList.add('active');
@@ -74,7 +74,7 @@ function seleccionarFormato(nombreFormato) {
     actualizarResumen();
 }
 
-// Actualizar el texto superior de la pantalla
+// Actualizar el texto resumen superior de la pantalla
 function actualizarResumen() {
     const resumen = document.getElementById('resumen-pedido');
     if (resumen) {
