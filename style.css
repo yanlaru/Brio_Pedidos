@@ -1,0 +1,44 @@
+:root {
+  --g1:#1F4A30; --g2:#2A6040; --g3:#3F8C5A; --gL:#E6F0EA; --gXL:#F4F9F5;
+  --or:#E07B27; --or2:#C95E0E; --orL:#FFE9D6; --orXL:#FFF6EC;
+  --b:#2C5DA8; --b2:#1E4485; --bL:#E6EFFB; --bXL:#F5F9FE;
+  --r:#C0392B; --rL:#FCE9E1;
+  --y:#E5A93C; --yL:#FFF1D4;
+  --pu:#7B3F90; --puL:#F0E5F5;
+  --ink:#1B2630; --txt:#3A4754; --txt2:#5E6B78;
+  --line:#D7DEE3; --line2:#EDF1F4;
+  --bg:#F7F9FA; --card:#FFFFFF;
+  --shadow:0 1px 2px rgba(20,32,46,.06),0 1px 1px rgba(20,32,46,.04);
+  --shadow2:0 8px 28px rgba(20,32,46,.16);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { background: var(--bg); color: var(--txt); font-family: 'Inter', -apple-system, sans-serif; font-size: 13px; line-height: 1.4; }
+.wrap { max-width: 1640px; margin: 0 auto; padding: 14px 18px 70px; }
+button, input, select { font: inherit; color: inherit; }
+button { cursor: pointer; border: none; background: none; }
+
+/* Barra superior */
+.topbar { display: flex; align-items: center; gap: 14px; background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 9px 14px; box-shadow: var(--shadow); margin-bottom: 10px; }
+.brand { display: flex; align-items: center; gap: 9px; }
+.brand-mark { width: 30px; height: 30px; border-radius: 7px; background: linear-gradient(135deg,var(--g2),var(--g3)); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 900; }
+.brand-name { font-size: 14px; font-weight: 800; color: var(--g1); }
+.brand-sub { font-size: 11px; color: var(--txt2); }
+.tb-spacer { flex: 1; }
+
+/* Tarjetas de pasos */
+.step-card { background: #fff; border: 1px solid var(--line); border-radius: 10px; box-shadow: var(--shadow); margin-bottom: 10px; overflow: hidden; }
+.step-hd { display: flex; align-items: center; gap: 9px; padding: 9px 14px; border-bottom: 1px solid var(--line2); }
+.step-hd .step { width: 22px; height: 22px; border-radius: 50%; background: var(--g2); color: #fff; font-weight: 900; display: flex; align-items: center; justify-content: center; }
+.step-hd .t { font-size: 12.5px; font-weight: 800; color: var(--g1); }
+
+/* Clientes y Selectores */
+.cli-card .step-hd { background: var(--bXL); }
+.cli-card .step-hd .step { background: var(--b); }
+.cli-body { padding: 12px 14px; }
+.cli-chips { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
+.cli-chip { padding: 9px 4px; border-radius: 8px; border: 1.5px solid var(--line); background: #fff; font-weight: 800; text-align: center; }
+.cli-chip.active { background: var(--b); border-color: var(--b); color: #fff; }
+.sel-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 15px; }
+.chips { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 5px; }
+.chip { padding: 7px 9px; border-radius: 7px; border: 1.5px solid var(--line); background: #fff; font-weight: 800; }
+.chip.active { background: var(--g2); border-color: var(--g2); color: #fff; }

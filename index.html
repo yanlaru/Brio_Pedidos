@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <title>Brio Fruits — Panel de Pedidos Activo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="wrap">
+    <!-- Barra Superior -->
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark">B</div>
+        <div>
+          <div class="brand-name">Brio Fruits</div>
+          <div class="brand-sub">Sistema de Pedidos</div>
+        </div>
+      </div>
+      <div class="tb-spacer"></div>
+      <div id="resumen-pedido" style="font-weight: bold; color: var(--g1);">
+        Pedido: Ningún cliente seleccionado
+      </div>
+    </header>
+
+    <!-- PASO 1: Selección de Cliente -->
+    <section class="step-card cli-card">
+      <div class="step-hd">
+        <div class="step">1</div>
+        <div class="t">Seleccionar Cliente</div>
+      </div>
+      <div class="cli-body">
+        <div class="cli-chips">
+          <button class="cli-chip" onclick="seleccionarCliente('Cliente A')">Cliente A</button>
+          <button class="cli-chip" onclick="seleccionarCliente('Cliente B')">Cliente B</button>
+          <button class="cli-chip" onclick="seleccionarCliente('Cliente C')">Cliente C</button>
+          <button class="cli-chip" onclick="seleccionarCliente('Cliente D')">Cliente D</button>
+          <button class="cli-chip" onclick="seleccionarCliente('Cliente E')">Cliente E</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- PASO 2: Selección de Producto -->
+    <section class="step-card sel-card">
+      <div class="step-hd">
+        <div class="step">2</div>
+        <div class="t">Selección de Producto</div>
+      </div>
+      <div class="sel-grid">
+        <div>
+          <label class="sc-name">Fruta</label>
+          <div class="chips">
+            <button class="chip" onclick="seleccionarProducto('Naranjas')">Naranjas</button>
+            <button class="chip" onclick="seleccionarProducto('Mandarinas')">Mandarinas</button>
+            <button class="chip" onclick="seleccionarProducto('Limones')">Limones</button>
+          </div>
+        </div>
+        <div>
+          <label class="sc-name">Formato</label>
+          <div class="chips">
+            <button class="chip" onclick="seleccionarFormato('Caja 10kg')">Caja 10kg</button>
+            <button class="chip" onclick="seleccionarFormato('Caja 15kg')">Caja 15kg</button>
+            <button class="chip" onclick="seleccionarFormato('Palet')">Palet</button>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <button class="btn primary" style="width: 100%; padding: 12px; margin-top: 10px;" onclick="guardarPedido()">
+      Confirmar y Guardar Pedido
+    </button>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
